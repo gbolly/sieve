@@ -16,33 +16,48 @@ import { logout } from "../store/actions/auth";
 
 class CustomLayout extends React.Component {
   render() {
-    const { authenticated } = this.props;
+    const { authenticated, username } = this.props;
+    console.log(this.props)
     return (
       <div>
         <Menu fixed="top" inverted>
           <Container>
             <Link to="/">
-              <Menu.Item header>Home</Menu.Item>
+              <Menu.Item header>HOME</Menu.Item>
             </Link>
-            {authenticated ? (
-              <Menu.Item header onClick={() => this.props.logout()}>
-                Logout
-              </Menu.Item>
-            ) : (
-              <React.Fragment>
-                <Link to="/login">
-                  <Menu.Item header>Login</Menu.Item>
-                </Link>
-                <Link to="/signup">
-                  <Menu.Item header>Signup</Menu.Item>
-                </Link>
-              </React.Fragment>
+            {authenticated && (
+              <Link to={`/profile/${this.props.userId}`}>
+                <Menu.Item header>Profile</Menu.Item>
+              </Link>
             )}
+            {authenticated ? (
+              <Menu.Menu position='right'>
+                <Menu.Item header>
+                  HELLO  {username.toUpperCase()}
+                </Menu.Item>
+                <Menu.Item header onClick={() => this.props.logout()}>
+                  LOGOUT
+                </Menu.Item>
+              </Menu.Menu>
+            ) : (
+                <React.Fragment>
+                  <Link to="/login">
+                    <Menu.Item header>Login</Menu.Item>
+                  </Link>
+                  <Link to="/signup">
+                    <Menu.Item header>Signup</Menu.Item>
+                  </Link>
+                </React.Fragment>
+              )}
           </Container>
         </Menu>
 
-        {this.props.children}
-
+        <Segment
+          style={{ margin: "0em 0em 0em", padding: "5em 0em" }}
+        >
+          <Container>{this.props.children}</Container>
+        </Segment>
+        {/* <div class="push" style={{ height: "310px" }}></div> */}
         <Segment
           inverted
           vertical
@@ -111,7 +126,9 @@ class CustomLayout extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    authenticated: state.auth.token !== null
+    authenticated: state.auth.token !== null,
+    username: state.auth.username || '',
+    userId: state.auth.userId
   };
 };
 

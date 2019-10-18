@@ -5,7 +5,8 @@ import {
   Grid,
   Header,
   Message,
-  Segment
+  Segment,
+  Select
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";
@@ -16,22 +17,31 @@ class RegistrationForm extends React.Component {
     username: "",
     email: "",
     password1: "",
-    password2: ""
+    password2: "",
+    userType: ""
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    const { username, email, password1, password2 } = this.state;
-    this.props.signup(username, email, password1, password2);
+    const { username, email, password1, password2, userType } = this.state;
+    let is_student = false;
+    if (userType === "student") is_student = true;
+    this.props.signup(username, email, password1, password2, is_student);
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange = (e, { name, value }) => {
+    e.persist();
+    this.setState({ [name]: value });
   };
 
   render() {
     const { username, email, password1, password2 } = this.state;
     const { error, loading, token } = this.props;
+    const options = [
+      { key: 's', text: 'Student', value: 'student' },
+      { key: 't', text: 'Teacher', value: 'teacher' }
+    ];
+
     if (token) {
       return <Redirect to="/" />;
     }
@@ -89,6 +99,14 @@ class RegistrationForm extends React.Component {
                   type="password"
                 />
 
+                <Form.Select
+                  onChange={this.handleChange}
+                  fluid
+                  options={options}
+                  placeholder="Select a user type"
+                  name="userType"
+                />
+
                 <Button
                   color="teal"
                   fluid
@@ -120,8 +138,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    signup: (username, email, password1, password2) =>
-      dispatch(authSignup(username, email, password1, password2))
+    signup: (username, email, password1, password2, is_student) =>
+      dispatch(authSignup(username, email, password1, password2, is_student))
   };
 };
 
