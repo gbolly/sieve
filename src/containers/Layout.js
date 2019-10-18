@@ -17,7 +17,6 @@ import { logout } from "../store/actions/auth";
 class CustomLayout extends React.Component {
   render() {
     const { authenticated, username } = this.props;
-    console.log(this.props)
     return (
       <div>
         <Menu fixed="top" inverted>
@@ -25,18 +24,19 @@ class CustomLayout extends React.Component {
             <Link to="/">
               <Menu.Item header>HOME</Menu.Item>
             </Link>
-            {authenticated && (
-              <Link to={`/profile/${this.props.userId}`}>
-                <Menu.Item header>Profile</Menu.Item>
-              </Link>
-            )}
             {authenticated ? (
               <Menu.Menu position='right'>
+                <Link to="/assignment/">
+                  <Menu.Item header>Tests</Menu.Item>
+                </Link>
+                <Link to={`/profile/${this.props.userId}`}>
+                  <Menu.Item header>Profile</Menu.Item>
+                </Link>
+                <Menu.Item header onClick={() => this.props.logout(this.props)}>
+                  LOGOUT
+                </Menu.Item>
                 <Menu.Item header>
                   HELLO  {username.toUpperCase()}
-                </Menu.Item>
-                <Menu.Item header onClick={() => this.props.logout()}>
-                  LOGOUT
                 </Menu.Item>
               </Menu.Menu>
             ) : (
@@ -134,7 +134,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout())
+    logout: (props) => dispatch(logout(props))
   };
 };
 

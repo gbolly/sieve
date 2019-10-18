@@ -21,8 +21,9 @@ export const authFail = error => {
   };
 };
 
-export const logout = () => {
+export const logout = (props) => {
   localStorage.removeItem("user");
+  if (props) props.history.push('/login')
   return {
     type: actionTypes.AUTH_LOGOUT
   };
