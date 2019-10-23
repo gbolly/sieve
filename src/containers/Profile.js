@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Container } from "semantic-ui-react";
+// import { Container } from "semantic-ui-react";
 
 
 class Profile extends React.PureComponent {
@@ -16,10 +16,10 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        //
-    };
-};
+// const mapDispatchToProps = dispatch => {
+//     return {
+//         //
+//     };
+// };
 
 export default connect(mapStateToProps)(Profile);

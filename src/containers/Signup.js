@@ -6,7 +6,7 @@ import {
   Header,
   Message,
   Segment,
-  Select
+  // Select
 } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { NavLink, Redirect } from "react-router-dom";

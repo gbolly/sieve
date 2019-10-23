@@ -5,7 +5,7 @@ import {
     List,
     Placeholder,
     Segment,
-
+    Divider
 } from "semantic-ui-react";
 import * as actions from "../store/actions/assignments";
 import Hoc from "../hoc/hoc";
@@ -17,7 +17,7 @@ class AssignmentList extends React.PureComponent {
         }
     }
 
-    componentWillReceiveProps(newProps) {
+    UNSAFE_componentWillReceiveProps(newProps) {
         if (newProps.token !== this.props.token) {
             if (newProps.token !== undefined && newProps.token !== null) {
                 this.props.getASNTS(newProps.token);
@@ -25,26 +25,29 @@ class AssignmentList extends React.PureComponent {
         }
     }
 
-    renderItem(item) {
-        return (
-            <Link to="/assignments/1">
-                <List.Item>{item.title}</List.Item>
-            </Link>
-        );
-    }
-
     render() {
         return (
             <Hoc>
                 {this.props.loading ? (
-                    <Placeholder active />
+                    <Placeholder>
+                        <Placeholder.Header image>
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                        </Placeholder.Header>
+                        <Placeholder.Paragraph>
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                            <Placeholder.Line />
+                        </Placeholder.Paragraph>
+                    </Placeholder>
                 ) : (
                         <div>
                             <h3 style={{ margin: "16px 0" }}>Assignment List</h3>
                             <Segment>
                                 {this.props.assignments.map(item => {
                                     return (
-                                        <List divided verticalAlign='middle'>
+                                        <List key={item.id} divided relaxed>
                                             <Link to={`/assignments/${item.id}`}>
                                                 <List.Item>
                                                     <List.Content>
@@ -53,6 +56,7 @@ class AssignmentList extends React.PureComponent {
                                                 </List.Item>
                                             </Link>
                                             Added by: {item.teacher}
+                                            <Divider inverted />
                                         </List>
                                     )
                                 })}

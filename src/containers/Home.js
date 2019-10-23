@@ -6,10 +6,10 @@ import {
   Divider,
   Grid,
   Header,
-  Icon,
+  // Icon,
   Image,
-  List,
-  Menu,
+  // List,
+  // Menu,
   Responsive,
   Segment,
   Sidebar,
@@ -29,7 +29,7 @@ class DesktopContainer extends Component {
 
   render() {
     const { children } = this.props;
-    const { fixed } = this.state;
+    // const { fixed } = this.state;
 
     return (
       <Responsive getWidth={getWidth} minWidth={Responsive.onlyTablet.minWidth}>
@@ -57,7 +57,7 @@ class MobileContainer extends Component {
 
   render() {
     const { children } = this.props;
-    const { sidebarOpened } = this.state;
+    // const { sidebarOpened } = this.state;
 
     return (
       <Responsive
@@ -167,7 +167,7 @@ const HomepageLayout = () => (
           horizontal
           style={{ margin: "3em 0em", textTransform: "uppercase" }}
         >
-          <a href="#">Case Studies</a>
+          <a href="./">Case Studies</a>
         </Divider>
         <Header as="h3" style={{ fontSize: "2em" }}>
           Did We Tell You About Our Bananas?

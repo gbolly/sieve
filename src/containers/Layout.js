@@ -2,7 +2,7 @@ import React from "react";
 import {
   Container,
   Divider,
-  Dropdown,
+  // Dropdown,
   Grid,
   Header,
   Image,
@@ -26,11 +26,11 @@ class CustomLayout extends React.Component {
             </Link>
             {authenticated ? (
               <Menu.Menu position='right'>
-                <Link to="/assignment/">
-                  <Menu.Item header>Tests</Menu.Item>
+                <Link to="/assignments/">
+                  <Menu.Item header>TESTS</Menu.Item>
                 </Link>
                 <Link to={`/profile/${this.props.userId}`}>
-                  <Menu.Item header>Profile</Menu.Item>
+                  <Menu.Item header>PROFILE</Menu.Item>
                 </Link>
                 <Menu.Item header onClick={() => this.props.logout(this.props)}>
                   LOGOUT
